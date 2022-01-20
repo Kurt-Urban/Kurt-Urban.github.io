@@ -8,7 +8,7 @@ import { IoDocumentTextSharp } from "react-icons/io5";
 const ProfileInfo: FC = () => {
   const [copied, setCopied] = useState(false);
   return (
-    <div className="relative flex items-center w-1/5 top-6 left-6 transition-all md:top-16 md:left-20 lg:top-32 lg:left-40 xl:top-40 xl:left-48 2xl:top-60 2xl:left-72">
+    <div className="relative flex items-center w-full top-6 left-6 transition-all md:top-16 md:left-20 lg:top-32 lg:left-40 xl:top-40 xl:left-48 2xl:top-60 2xl:left-72">
       <div className="flex justify-center">
         <div className="peer border-gray-300 shadow-2xl z-30 drop-shadow-2xl bg-black border-4 flex items-center rounded-full transition hover:border-white">
           <a
@@ -17,9 +17,10 @@ const ProfileInfo: FC = () => {
           >
             <Image
               id="profile-photo"
-              height={150}
-              width={150}
-              src={ProfilePhoto}
+              height="150"
+              width="150"
+              src={"https://i.imgur.com/PyebmpF.jpg" || ProfilePhoto}
+              loader={() => "https://i.imgur.com/PyebmpF.jpg"}
               alt="moose in rocky mountains"
               objectFit="cover"
               className="rounded-full hover:cursor-pointer transition hover:opacity-60 z-40"
@@ -65,7 +66,7 @@ const ProfileInfo: FC = () => {
           target="_blank"
           rel="noopener noreferrer"
           download={`Urban-Resume-${new Date().getFullYear()}.docx`}
-          className="flex group cursor-pointer my-1 transition hover:text-gray-500"
+          className="flex group cursor-pointer my-1 transition hover:text-gray-600"
         >
           <div className="text-shadow flex items-center ">
             Resume <IoDocumentTextSharp className="ml-1" />
