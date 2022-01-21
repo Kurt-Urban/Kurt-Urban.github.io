@@ -16,6 +16,7 @@ const ProfileInfo: FC = () => {
             style={{ fontSize: 0 }}
           >
             <Image
+              unoptimized
               id="profile-photo"
               height="150"
               width="150"
