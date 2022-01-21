@@ -9,6 +9,7 @@ const Home: React.FC = () => {
       <ProfileInfo />
       <div className="opacity-90 relative bottom-40">
         <Image
+          unoptimized
           id="banner-photo"
           height="2529"
           width="5302"
