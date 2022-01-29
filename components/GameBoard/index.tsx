@@ -15,10 +15,11 @@ const GameboardRow: FC<{ row: number }> = ({ row }) => {
             <div
               key={tile}
               className={classnames(
-                "border-2 border-wordul-tile h-16 w-16 m-1 font-bold text-3xl flex items-center justify-center",
+                "border-2 border-wordul-tile h-16 w-16 mr-1 mt-1 font-bold text-3xl flex items-center justify-center transition-all duration-300",
                 {
                   "border-0 bg-wordul-warn": guesses[row]?.[i]?.value === 2,
                   "border-0 bg-wordul-success": guesses[row]?.[i]?.value === 1,
+                  "border-0 bg-wordul-dark": guesses[row]?.[i]?.value === 0,
                 }
               )}
             >
@@ -38,7 +39,7 @@ const GameBoard: FC = () => {
 
   return (
     <>
-      <div className="container max-w-lg mx-auto flex justify-center">
+      <div className="container max-w-lg mx-auto flex justify-center items-center">
         <div>
           {rowsArray.map((row) => {
             return <GameboardRow row={row} key={row} />;

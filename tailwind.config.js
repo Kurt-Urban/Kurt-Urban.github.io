@@ -17,6 +17,8 @@ module.exports = {
         "wordul-tile": "#3c3c3c",
         "wordul-success": "#588c4c",
         "wordul-warn": "#b89c3c",
+        "wordul-text": "#d8dadc",
+        "wordul-dark": "#403c3c",
       },
     },
     theme: {},
