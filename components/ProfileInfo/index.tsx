@@ -29,7 +29,7 @@ const ProfileInfo: FC = () => {
           </a>
         </div>
         <div className="absolute bottom-0 w-75 font-bold text-2xl z-20 flex text-white items-center -translate-y-10 transition peer-hover:translate-y-8">
-          Linked In <FaLinkedin className="ml-1 text-blue-500" />
+          Linked <FaLinkedin className="ml-1 text-blue-500" />
         </div>
       </div>
       <div className="rows-4 ml-6 mb-4 z-30">

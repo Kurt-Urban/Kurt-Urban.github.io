@@ -10,22 +10,23 @@ const Keyboard: FC = () => {
   const lineThree = ["z", "x", "c", "v", "b", "n", "m"];
   const keyList = [...lineOne, ...lineTwo, ...lineThree];
 
-  // const handleKeyInput = useCallback((e: any): void => {
-  //   if (keyList.includes(e.key.toLowerCase()) && currentGuess.length < 5) {
-  //     addLetter(e.key.toLowerCase());
-  //   }
-  //   if (e.key === "Backspace") {
-  //     removeLetter();
-  //   }
-  //   if (e.key === "Enter") {
-  //     addGuess(currentGuess);
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   document.body.addEventListener("keydown", (e) => handleKeyInput(e));
-  //   return () =>
-  //     document.body.removeEventListener("keydown", (e) => handleKeyInput(e));
-  // }, []);
+  const handleKeyInput = useCallback((e: any): void => {
+    if (keyList.includes(e.key.toLowerCase()) && currentGuess.length < 5) {
+      addLetter(e.key.toLowerCase());
+    }
+    if (e.key === "Backspace") {
+      removeLetter();
+    }
+    if (e.key === "Enter") {
+      addGuess(currentGuess);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.body.addEventListener("keydown", (e) => handleKeyInput(e));
+    return () =>
+      document.body.removeEventListener("keydown", (e) => handleKeyInput(e));
+  }, []);
 
   const keyboardClass =
     "bg-wordul-gray text-gray-200 h-14 w-11 rounded-md m-1 text-sm font-bold";
