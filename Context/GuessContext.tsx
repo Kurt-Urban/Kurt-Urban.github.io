@@ -51,7 +51,7 @@ const initialState: State = {
 
 export const GuessContext = createContext(initialState);
 
-export const GuessProvider = ({ children }) => {
+export const GuessProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(GuessReducer, initialState);
 
   function addLetter(item: string) {
