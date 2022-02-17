@@ -1,9 +1,10 @@
 import React from "react";
-import { Banner, ProfileInfo } from "../components";
+import { Banner, ProfileInfo, Welcome } from "../components";
 
 const Home: React.FC = () => {
   return (
     <>
+      <Welcome />
       <ProfileInfo />
       <Banner />
     </>
