@@ -1,7 +1,6 @@
 import React, { FC, useRef } from "react";
 
 const Tooltip: FC = ({ children, ...props }) => {
-  const ref = useRef();
   return (
     <>
       <div
