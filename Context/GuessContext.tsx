@@ -51,13 +51,13 @@ const initialState: State = {
 
 export const GuessContext = createContext(initialState);
 
-export const GuessProvider = ({ children }) => {
+export const GuessProvider: FC = ({ children }) => {
   const [state, dispatch] = useReducer(GuessReducer, initialState);
 
-  function addLetter(item: string) {
+  function addLetter(letter: string) {
     dispatch({
       type: "ADD_LETTER",
-      payload: item,
+      payload: letter,
     });
   }
   function removeLetter() {
@@ -67,10 +67,10 @@ export const GuessProvider = ({ children }) => {
     });
   }
 
-  function addGuess(item: string[]) {
+  function addGuess(guess: string[]) {
     dispatch({
       type: "ADD_GUESS",
-      payload: item,
+      payload: guess,
     });
   }
 

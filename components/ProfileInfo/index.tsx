@@ -8,7 +8,7 @@ import { IoDocumentTextSharp } from "react-icons/io5";
 const ProfileInfo: FC = () => {
   const [copied, setCopied] = useState(false);
   return (
-    <div className="relative flex items-center h-0 w-3/4 top-6 left-6 transition-all md:top-16 md:left-20 lg:top-32 lg:left-40 xl:top-40 xl:left-48 2xl:top-60 2xl:left-72">
+    <div className="relative flex items-center h-0 w-3/4 top-28 left-4 transition-all lg:top-32 lg:left-40 xl:top-40 xl:left-48 2xl:top-60 2xl:left-72">
       <div className="flex justify-center">
         <div className="peer border-gray-300 shadow-2xl z-30 drop-shadow-2xl bg-black border-4 flex items-center rounded-full transition hover:border-white">
           <a
@@ -28,7 +28,7 @@ const ProfileInfo: FC = () => {
             />
           </a>
         </div>
-        <div className="absolute bottom-0 w-75 font-bold text-4xl z-20 flex text-white items-center transition peer-hover:translate-y-40">
+        <div className="absolute top-0 w-75 font-bold text-4xl z-20 flex text-white items-center transition peer-hover:translate-y-28">
           Linked <FaLinkedin className="ml-1 text-blue-500" />
         </div>
       </div>

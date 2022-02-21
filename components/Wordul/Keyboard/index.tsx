@@ -1,39 +1,39 @@
-import React, { FC, useCallback, useEffect } from "react";
+import React, { FC, useCallback } from "react";
 import { CgBackspace } from "react-icons/cg";
-import { useGuess } from "../../Hooks";
+import { useGuess } from "../../../Hooks";
 
 const Keyboard: FC = () => {
   const { currentGuess, addLetter, removeLetter, addGuess } = useGuess();
 
-  const lineOne = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
-  const lineTwo = ["a", "s", "d", "f", "g", "h", "j", "k", "l"];
-  const lineThree = ["z", "x", "c", "v", "b", "n", "m"];
+  const lineOne = "qwertyuiop".split("");
+  const lineTwo = "asdfghjkl".split("");
+  const lineThree = "zxcvbnm".split("");
   const keyList = [...lineOne, ...lineTwo, ...lineThree];
 
-  const handleKeyInput = useCallback((e: any): void => {
-    if (keyList.includes(e.key.toLowerCase()) && currentGuess.length < 5) {
-      addLetter(e.key.toLowerCase());
-    }
-    if (e.key === "Backspace") {
-      removeLetter();
-    }
-    if (e.key === "Enter") {
-      addGuess(currentGuess);
-    }
-  }, []);
-
-  useEffect(() => {
-    document.body.addEventListener("keydown", (e) => handleKeyInput(e));
-    return () =>
-      document.body.removeEventListener("keydown", (e) => handleKeyInput(e));
-  }, []);
+  const handleKeyInput = useCallback(
+    (e: any): void => {
+      if (keyList.includes(e.key.toLowerCase()) && currentGuess.length < 5) {
+        addLetter(e.key.toLowerCase());
+      }
+      if (e.key === "Backspace" && currentGuess.length > 0) {
+        removeLetter();
+      }
+      if (e.key === "Enter" && currentGuess.length === 5) {
+        addGuess(currentGuess);
+      }
+    },
+    [currentGuess]
+  );
 
   const keyboardClass =
     "bg-wordul-gray text-gray-200 h-14 w-11 rounded-md m-1 text-sm font-bold";
 
   return (
     <>
-      <div className="container max-w-screen mx-auto ">
+      <div
+        className="container max-w-screen mx-auto"
+        onKeyDown={handleKeyInput}
+      >
         <div className="flex justify-center">
           {lineOne.map((letter) => (
             <button
@@ -53,7 +53,7 @@ const Keyboard: FC = () => {
               key={letter}
               className={keyboardClass}
               onClick={() =>
-                currentGuess.length < 6 ? addLetter(letter) : null
+                currentGuess.length < 5 ? addLetter(letter) : null
               }
             >
               {letter.toUpperCase()}

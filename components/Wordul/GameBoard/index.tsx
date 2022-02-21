@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import _ from "lodash";
-import { useGuess } from "../../Hooks";
+import { useGuess } from "../../../Hooks";
 import classnames from "classnames";
 
 const GameboardRow: FC<{ row: number }> = ({ row }) => {
