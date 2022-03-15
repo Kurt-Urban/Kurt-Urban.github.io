@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import _ from "lodash";
 import { useGuess } from "../../../Hooks";
 import classnames from "classnames";
+import WordulModal from "../WordulModal";
 
 const GameboardRow: FC<{ row: number }> = ({ row }) => {
   const tilesArray = _.range(5);
@@ -36,16 +37,23 @@ const GameboardRow: FC<{ row: number }> = ({ row }) => {
 
 const GameBoard: FC = () => {
   const rowsArray = _.range(6);
+  const { win } = useGuess();
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleModal = () => setIsOpen((show) => !show);
 
+  useEffect(() => {
+    if (win) setTimeout(() => setIsOpen(true), 500);
+  }, [win]);
   return (
     <>
-      <div className="container max-w-lg mx-auto flex justify-center items-center">
+      <div className="container max-w-lg mx-auto flex justify-center items-center text-wordul-text">
         <div>
           {rowsArray.map((row) => {
             return <GameboardRow row={row} key={row} />;
           })}
         </div>
       </div>
+      <WordulModal isOpen={isOpen} toggle={toggleModal} />
     </>
   );
 };

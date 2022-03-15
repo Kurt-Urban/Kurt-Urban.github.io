@@ -20,8 +20,8 @@ const Welcome: FC = () => {
           return (
             <span
               key={i}
-              className={classNames("mt-1 z-10 opacity-50", {
-                "opacity-30": i > 3,
+              className={classNames("mt-1 z-10 opacity-30", {
+                "opacity-10": i > 3,
               })}
             >
               {lang}

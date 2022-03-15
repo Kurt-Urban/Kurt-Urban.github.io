@@ -11,7 +11,7 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean }> = ({
     <>
       <div
         className={classNames(
-          "absolute container min-w-full text-center mt-40 transitionease-in-out duration-300",
+          "absolute container min-w-full text-center top-40 transitionease-in-out duration-300 text-wordul-text",
           { "opacity-0 -translate-y-24 invisible": !isOpen }
         )}
       >

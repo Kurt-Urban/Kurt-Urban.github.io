@@ -1,41 +1,20 @@
-import React, { FC, useCallback } from "react";
+import React, { FC } from "react";
 import { CgBackspace } from "react-icons/cg";
 import { useGuess } from "../../../Hooks";
+import getDefinition from "../../../utils/getDefinition";
+import { KeyboardKeys } from "./KeyboardKeys";
 
 const Keyboard: FC = () => {
   const { currentGuess, addLetter, removeLetter, addGuess } = useGuess();
-
-  const lineOne = "qwertyuiop".split("");
-  const lineTwo = "asdfghjkl".split("");
-  const lineThree = "zxcvbnm".split("");
-  const keyList = [...lineOne, ...lineTwo, ...lineThree];
-
-  const handleKeyInput = useCallback(
-    (e: any): void => {
-      if (keyList.includes(e.key.toLowerCase()) && currentGuess.length < 5) {
-        addLetter(e.key.toLowerCase());
-      }
-      if (e.key === "Backspace" && currentGuess.length > 0) {
-        removeLetter();
-      }
-      if (e.key === "Enter" && currentGuess.length === 5) {
-        addGuess(currentGuess);
-      }
-    },
-    [currentGuess]
-  );
 
   const keyboardClass =
     "bg-wordul-gray text-gray-200 h-14 w-11 rounded-md m-1 text-sm font-bold";
 
   return (
     <>
-      <div
-        className="container max-w-screen mx-auto"
-        onKeyDown={handleKeyInput}
-      >
+      <div className="container max-w-screen mx-auto">
         <div className="flex justify-center">
-          {lineOne.map((letter) => (
+          {KeyboardKeys.lineOne.map((letter) => (
             <button
               key={letter}
               className={keyboardClass}
@@ -48,7 +27,7 @@ const Keyboard: FC = () => {
           ))}
         </div>
         <div className="flex justify-center">
-          {lineTwo.map((letter) => (
+          {KeyboardKeys.lineTwo.map((letter) => (
             <button
               key={letter}
               className={keyboardClass}
@@ -63,13 +42,16 @@ const Keyboard: FC = () => {
         <div className="flex justify-center">
           <button
             className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-sm font-bold"
-            onClick={() => {
-              if (currentGuess.length === 5) addGuess(currentGuess);
+            onClick={async () => {
+              if (currentGuess.length === 5)
+                if (await getDefinition(currentGuess.join(""))) {
+                  addGuess(currentGuess);
+                }
             }}
           >
             Enter
           </button>
-          {lineThree.map((letter) => (
+          {KeyboardKeys.lineThree.map((letter) => (
             <button
               key={letter}
               className={keyboardClass}
