@@ -3,9 +3,10 @@ import classNames from "classnames";
 import { IoShareSocial } from "react-icons/io5";
 import { FaTimes } from "react-icons/fa";
 
-const WordulModal: FC<{ toggle: () => void; isOpen: boolean }> = ({
+const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
   toggle,
   isOpen,
+  win,
 }) => {
   return (
     <>
@@ -18,6 +19,9 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean }> = ({
         <div className="container bg-neutral-900 border border-neutral-800 rounded w-1/4 mx-auto grid">
           <div className="flex w-full justify-end pr-4 pt-4">
             <FaTimes className="cursor-pointer" onClick={toggle} />
+          </div>
+          <div className="text-xl font-bold mb-3">
+            {win === "win" ? "Congrats!" : "Try Back Later..."}
           </div>
           <div className="flex items-center justify-center border-b border-neutral-500 mx-10 mb-14">
             <div className="mb-2">Statistics</div>

@@ -6,7 +6,7 @@ interface State {
   correctWord: string;
   currentGuess: string[];
   guesses: { letter: string; value: number }[][];
-  win: boolean;
+  win: "win" | "loss" | "play";
   addLetter: (letter: string) => void;
   removeLetter: () => void;
   addGuess: (guess: string[]) => void;
@@ -37,7 +37,21 @@ const GuessReducer = (
       const prevGuess = action.payload.join("");
 
       if (prevGuess === state.correctWord) {
-        return { ...state, win: true };
+        return {
+          ...state,
+          win: "win",
+          currentGuess: [],
+          guesses: [...state.guesses, submittedGuess],
+        };
+      }
+      // Last guess
+      if (prevGuess !== state.correctWord && state.guesses.length === 5) {
+        return {
+          ...state,
+          win: "loss",
+          currentGuess: [],
+          guesses: [...state.guesses, submittedGuess],
+        };
       }
 
       return {
@@ -54,7 +68,7 @@ const initialState: State = {
   correctWord: "waste",
   currentGuess: [],
   guesses: [],
-  win: false,
+  win: "play",
   addLetter: (letter: string) => {},
   removeLetter: () => {},
   addGuess: (guess: string[]) => {},

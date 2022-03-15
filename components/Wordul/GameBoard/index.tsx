@@ -42,7 +42,8 @@ const GameBoard: FC = () => {
   const toggleModal = () => setIsOpen((show) => !show);
 
   useEffect(() => {
-    if (win) setTimeout(() => setIsOpen(true), 500);
+    if (win === "win") setTimeout(() => setIsOpen(true), 500);
+    if (win === "loss") setTimeout(() => setIsOpen(true), 500);
   }, [win]);
   return (
     <>
@@ -53,7 +54,7 @@ const GameBoard: FC = () => {
           })}
         </div>
       </div>
-      <WordulModal isOpen={isOpen} toggle={toggleModal} />
+      <WordulModal win={win} isOpen={isOpen} toggle={toggleModal} />
     </>
   );
 };
