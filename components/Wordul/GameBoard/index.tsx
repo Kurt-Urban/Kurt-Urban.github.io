@@ -6,8 +6,14 @@ import WordulModal from "../WordulModal";
 
 const GameboardRow: FC<{ row: number }> = ({ row }) => {
   const tilesArray = _.range(5);
-  const { currentGuess, guesses } = useGuess();
-
+  const { currentGuess, guesses, invalidWord } = useGuess();
+  const [badGuess, setBadGuess] = useState(false);
+  useEffect(() => {
+    if (invalidWord !== 0) {
+      setBadGuess(true);
+      setTimeout(() => setBadGuess(false), 1000);
+    }
+  }, [invalidWord]);
   return (
     <>
       <div className="flex">
@@ -16,11 +22,13 @@ const GameboardRow: FC<{ row: number }> = ({ row }) => {
             <div
               key={tile}
               className={classnames(
-                "border-2 border-wordul-tile h-16 w-16 mr-1 mt-1 font-bold text-3xl flex items-center justify-center transition-all duration-300",
+                "border-2 border-wordul-tile h-16 w-16 mr-1 mt-1 font-bold text-3xl flex items-center justify-center transition-all duration-300 wiggle",
                 {
                   "border-0 bg-wordul-warn": guesses[row]?.[i]?.value === 2,
                   "border-0 bg-wordul-success": guesses[row]?.[i]?.value === 1,
                   "border-0 bg-wordul-dark": guesses[row]?.[i]?.value === 0,
+                  "animate__animated animate__shakeX":
+                    row === guesses.length && badGuess,
                 }
               )}
             >

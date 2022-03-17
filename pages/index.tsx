@@ -46,11 +46,9 @@ const Home: React.FC = () => {
           <SideNav />
           <div className="container flex justify-center items-center">
             <div>
-              <div className="text-7xl font-bold pr-40">
-                This Site Is Made With
-              </div>
+              <div className="text-7xl font-bold pr-40">Designed With</div>
               <div className="float-right">
-                <div className="text-7xl font-bold">NextJs</div>
+                <div className="text-7xl border font-bold">NextJs</div>
               </div>
             </div>
           </div>

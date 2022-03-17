@@ -7,6 +7,8 @@ interface State {
   currentGuess: string[];
   guesses: { letter: string; value: number }[][];
   win: "win" | "loss" | "play";
+  invalidWord: number;
+  usedLetters: string[];
   addLetter: (letter: string) => void;
   removeLetter: () => void;
   addGuess: (guess: string[]) => void;
@@ -29,10 +31,17 @@ const GuessReducer = (
     case "ADD_GUESS":
       const correctWordArray = state.correctWord.split("");
       const submittedGuess = action.payload.map((letter: string, i: number) => {
+        // 0 = Doesnt Contain Letter
+        // 1 = Correct Letter / Position
+        // 2 = Correct Letter / Bad Position
         if (letter === correctWordArray[i]) return { letter, value: 1 };
         if (correctWordArray.includes(letter)) return { letter, value: 2 };
         return { letter, value: 0 };
       });
+
+      const usedLetters = submittedGuess
+        .filter((index: any) => index.value === 0)
+        .map((letter: any) => letter.letter);
 
       const prevGuess = action.payload.join("");
 
@@ -58,7 +67,10 @@ const GuessReducer = (
         ...state,
         currentGuess: [],
         guesses: [...state.guesses, submittedGuess],
+        usedLetters: [...state.usedLetters, ...usedLetters],
       };
+    case "INVALID_WORD":
+      return { ...state, invalidWord: state.invalidWord + 1 };
     default:
       return state;
   }
@@ -69,6 +81,8 @@ const initialState: State = {
   currentGuess: [],
   guesses: [],
   win: "play",
+  invalidWord: 0,
+  usedLetters: [],
   addLetter: (letter: string) => {},
   removeLetter: () => {},
   addGuess: (guess: string[]) => {},
@@ -98,6 +112,12 @@ export const GuessProvider: FC = ({ children }) => {
       payload: guess,
     });
   }
+  function invalidWord() {
+    dispatch({
+      type: "INVALID_WORD",
+      payload: "",
+    });
+  }
 
   const handleKeyInput = useCallback(
     async (e: any): Promise<void> => {
@@ -111,8 +131,18 @@ export const GuessProvider: FC = ({ children }) => {
         removeLetter();
       }
       if (e.key === "Enter" && state.currentGuess.length === 5) {
+        const prevGuesses = state.guesses.map((guess) =>
+          guess.map((l) => l.letter).join("")
+        );
+        if (prevGuesses.includes(state.currentGuess.join(""))) {
+          invalidWord();
+          return;
+        }
+
         if (await getDefinition(state.currentGuess.join(""))) {
           addGuess(state.currentGuess);
+        } else {
+          invalidWord();
         }
       }
     },
@@ -126,6 +156,8 @@ export const GuessProvider: FC = ({ children }) => {
         currentGuess: state.currentGuess,
         guesses: state.guesses,
         win: state.win,
+        invalidWord: state.invalidWord,
+        usedLetters: state.usedLetters,
         addLetter,
         removeLetter,
         addGuess,
