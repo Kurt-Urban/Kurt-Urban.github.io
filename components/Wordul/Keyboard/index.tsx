@@ -5,10 +5,8 @@ import { useGuess } from "../../../Hooks";
 import getDefinition from "../../../utils/getDefinition";
 import { KeyboardKeys } from "./KeyboardKeys";
 
-const Keyboard: FC = () => {
-  const { currentGuess, addLetter, removeLetter, addGuess, usedLetters } =
-    useGuess();
-
+const KeyboardRow: FC<{ row: string[] }> = ({ row }) => {
+  const { currentGuess, addLetter, usedLetters } = useGuess();
   const keyboardClass = (letter: string) =>
     classNames("text-gray-200 h-14 w-11 rounded-md m-1 text-sm font-bold", {
       "bg-wordul-dark": usedLetters?.includes(letter),
@@ -16,34 +14,28 @@ const Keyboard: FC = () => {
     });
 
   return (
+    <div className="flex justify-center">
+      {row.map((letter) => (
+        <button
+          key={letter}
+          className={keyboardClass(letter)}
+          onClick={() => (currentGuess.length < 5 ? addLetter(letter) : null)}
+        >
+          {letter.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+const Keyboard: FC = () => {
+  const { currentGuess, removeLetter, addGuess } = useGuess();
+
+  return (
     <>
       <div className="container max-w-screen mx-auto">
-        <div className="flex justify-center">
-          {KeyboardKeys.lineOne.map((letter) => (
-            <button
-              key={letter}
-              className={keyboardClass(letter)}
-              onClick={() =>
-                currentGuess.length < 5 ? addLetter(letter) : null
-              }
-            >
-              {letter.toUpperCase()}
-            </button>
-          ))}
-        </div>
-        <div className="flex justify-center">
-          {KeyboardKeys.lineTwo.map((letter) => (
-            <button
-              key={letter}
-              className={keyboardClass(letter)}
-              onClick={() =>
-                currentGuess.length < 5 ? addLetter(letter) : null
-              }
-            >
-              {letter.toUpperCase()}
-            </button>
-          ))}
-        </div>
+        <KeyboardRow row={KeyboardKeys.lineOne} />
+        <KeyboardRow row={KeyboardKeys.lineTwo} />
         <div className="flex justify-center">
           <button
             className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-sm font-bold"
@@ -56,17 +48,7 @@ const Keyboard: FC = () => {
           >
             Enter
           </button>
-          {KeyboardKeys.lineThree.map((letter) => (
-            <button
-              key={letter}
-              className={keyboardClass(letter)}
-              onClick={() =>
-                currentGuess.length < 5 ? addLetter(letter) : null
-              }
-            >
-              {letter.toUpperCase()}
-            </button>
-          ))}
+          <KeyboardRow row={KeyboardKeys.lineThree} />
           <button
             className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-2xl"
             onClick={removeLetter}
