@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { keyList } from "../components/Wordul/Keyboard/KeyboardKeys";
 import getDefinition from "../utils/getDefinition";
+import pickWord from "../utils/pickWord";
 
 interface State {
   correctWord: string;
@@ -101,13 +102,15 @@ const GuessReducer = (
         .join("\n");
 
       return { ...state, emojiString };
+    case "PICK_CORRECT_WORD":
+      return { ...state, correctWord: action.payload };
     default:
       return state;
   }
 };
 
 const initialState: State = {
-  correctWord: "waste",
+  correctWord: "null",
   currentGuess: [],
   guesses: [],
   win: "play",
@@ -156,6 +159,19 @@ export const GuessProvider: FC = ({ children }) => {
       payload: "",
     });
   }
+
+  function pickCorrectWord() {
+    dispatch({
+      type: "PICK_CORRECT_WORD",
+      payload: pickWord(),
+    });
+  }
+
+  useEffect(() => {
+    if (state.correctWord === "null") {
+      pickCorrectWord();
+    }
+  }, [state.correctWord]);
 
   const handleKeyInput = useCallback(
     async (e: any): Promise<void> => {
