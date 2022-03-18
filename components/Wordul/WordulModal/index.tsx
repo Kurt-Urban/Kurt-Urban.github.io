@@ -9,7 +9,7 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
   isOpen,
   win,
 }) => {
-  const { shareResults, emojiString } = useGuess();
+  const { shareResults, emojiString, correctWord } = useGuess();
 
   useEffect(() => {
     if (emojiString) navigator.clipboard.writeText(emojiString);
@@ -28,7 +28,7 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
             <FaTimes className="cursor-pointer" onClick={toggle} />
           </div>
           <div className="text-xl font-bold mb-3">
-            {win === "win" ? "Congrats!" : "Try Back Later..."}
+            {win === "win" ? "Congrats!" : `${correctWord.toUpperCase()}`}
           </div>
           <div className="flex items-center justify-center border-b border-neutral-500 mx-10 mb-14">
             <div className="mb-2">Statistics</div>
@@ -37,8 +37,12 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
             <div className="font-bold">Next Wordle</div>
             <div className="h-16 border-r mx-6" />
             <div
-              className="flex items-center justify-center bg-wordul-success w-max p-2 rounded cursor-pointer text-2xl px-5"
-              onClick={shareResults}
+              className="flex items-center justify-center bg-wordul-success w-max p-2 rounded cursor-pointer text-2xl px-5 transition hover:opacity-80"
+              onClick={() =>
+                !emojiString
+                  ? shareResults()
+                  : navigator.clipboard.writeText(emojiString)
+              }
             >
               Share <IoShareSocial className="ml-2" />
             </div>

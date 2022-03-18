@@ -38,6 +38,7 @@ const GuessReducer = (
         return { ...state, currentGuess: [...state.currentGuess].slice(0, -1) };
       return state;
     case "ADD_GUESS":
+      // TODO Create condition for duplicate letters in guess
       const correctWordArray = state.correctWord.split("");
       const submittedGuess = action.payload.map((letter: string, i: number) => {
         // 0 = Doesnt Contain Letter
