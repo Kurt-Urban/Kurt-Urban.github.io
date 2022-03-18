@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import Introduction from "./Introduction";
 import Skills from "./Skills";
+import WordulButton from "./WordulButton";
 
 const skills = [
   "Next/Nest.js",
@@ -25,6 +26,10 @@ const Items: { content: string | ReactElement; header: string }[] = [
   {
     content: <Skills skills={skills} />,
     header: "Skills",
+  },
+  {
+    content: <WordulButton />,
+    header: "Game",
   },
 ];
 

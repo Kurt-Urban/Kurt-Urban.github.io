@@ -15,13 +15,13 @@ const translations = () => {
 const Welcome: FC = () => {
   return (
     <>
-      <div className="relative h-0 text-center lg:text-4xl lg:ml-48 xl:text-7xl xl:ml-80 grid transition-all">
+      <div className="relative h-0 text-center lg:text-4xl lg:ml-48 xl:text-7xl xl:ml-96 grid transition-all">
         {translations()?.map((lang, i) => {
           return (
             <span
               key={i}
-              className={classNames("mt-1 z-10 opacity-50", {
-                "opacity-30": i > 4,
+              className={classNames("mt-1 z-10 opacity-30", {
+                "opacity-10": i > 3,
               })}
             >
               {lang}

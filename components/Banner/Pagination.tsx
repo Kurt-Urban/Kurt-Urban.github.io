@@ -7,7 +7,7 @@ const Pagination: FC = () => {
   const [page, setPage] = useState(0);
   return (
     <>
-      <div className="w-full mt-10 flex justify-around items-center">
+      <div className="w-full flex justify-around items-center">
         <div className="w-1/3 border-t-2 rounded border-primary" />
         <button
           className={classNames("transition duration-300 text-primary", {
