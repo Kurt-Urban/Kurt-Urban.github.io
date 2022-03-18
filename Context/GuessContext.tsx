@@ -1,4 +1,10 @@
-import React, { createContext, FC, useCallback, useReducer } from "react";
+import React, {
+  createContext,
+  FC,
+  useCallback,
+  useEffect,
+  useReducer,
+} from "react";
 import { keyList } from "../components/Wordul/Keyboard/KeyboardKeys";
 import getDefinition from "../utils/getDefinition";
 
@@ -9,9 +15,11 @@ interface State {
   win: "win" | "loss" | "play";
   invalidWord: number;
   usedLetters: string[];
+  emojiString: string;
   addLetter: (letter: string) => void;
   removeLetter: () => void;
   addGuess: (guess: string[]) => void;
+  shareResults: () => void;
 }
 
 const GuessReducer = (
@@ -71,6 +79,28 @@ const GuessReducer = (
       };
     case "INVALID_WORD":
       return { ...state, invalidWord: state.invalidWord + 1 };
+    case "SHARE_RESULTS":
+      const completedGuessList = state.guesses.map((guess: any) =>
+        guess.map((g) => g.value)
+      );
+      const emojiString = completedGuessList
+        .map((guess: any) => {
+          return guess
+            .map((g: number) => {
+              switch (g) {
+                case 0:
+                  return "⬛";
+                case 1:
+                  return "🟩";
+                case 2:
+                  return "🟨";
+              }
+            })
+            .join("");
+        })
+        .join("\n");
+
+      return { ...state, emojiString };
     default:
       return state;
   }
@@ -83,9 +113,11 @@ const initialState: State = {
   win: "play",
   invalidWord: 0,
   usedLetters: [],
+  emojiString: "",
   addLetter: (letter: string) => {},
   removeLetter: () => {},
   addGuess: (guess: string[]) => {},
+  shareResults: () => {},
 };
 
 export const GuessContext = createContext(initialState);
@@ -115,6 +147,12 @@ export const GuessProvider: FC = ({ children }) => {
   function invalidWord() {
     dispatch({
       type: "INVALID_WORD",
+      payload: "",
+    });
+  }
+  function shareResults() {
+    dispatch({
+      type: "SHARE_RESULTS",
       payload: "",
     });
   }
@@ -148,6 +186,12 @@ export const GuessProvider: FC = ({ children }) => {
     },
     [state.currentGuess]
   );
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyInput);
+    return () => {
+      document.removeEventListener("keydown", handleKeyInput);
+    };
+  }, [handleKeyInput]);
 
   return (
     <GuessContext.Provider
@@ -158,9 +202,11 @@ export const GuessProvider: FC = ({ children }) => {
         win: state.win,
         invalidWord: state.invalidWord,
         usedLetters: state.usedLetters,
+        emojiString: state.emojiString,
         addLetter,
         removeLetter,
         addGuess,
+        shareResults,
       }}
     >
       <div onKeyDown={handleKeyInput}>{children}</div>

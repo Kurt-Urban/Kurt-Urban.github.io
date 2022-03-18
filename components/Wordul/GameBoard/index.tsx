@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
-import _ from "lodash";
+import range from "lodash.range";
 import { useGuess } from "../../../Hooks";
 import classnames from "classnames";
 import WordulModal from "../WordulModal";
 
 const GameboardRow: FC<{ row: number }> = ({ row }) => {
-  const tilesArray = _.range(5);
+  // Install loadash.range
+  const tilesArray = range(5);
   const { currentGuess, guesses, invalidWord } = useGuess();
   const [badGuess, setBadGuess] = useState(false);
   useEffect(() => {
@@ -44,7 +45,7 @@ const GameboardRow: FC<{ row: number }> = ({ row }) => {
 };
 
 const GameBoard: FC = () => {
-  const rowsArray = _.range(6);
+  const rowsArray = range(6);
   const { win } = useGuess();
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => setIsOpen((show) => !show);

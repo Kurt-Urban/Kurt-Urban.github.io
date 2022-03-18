@@ -1,13 +1,20 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import classNames from "classnames";
 import { IoShareSocial } from "react-icons/io5";
 import { FaTimes } from "react-icons/fa";
+import { useGuess } from "../../../Hooks";
 
 const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
   toggle,
   isOpen,
   win,
 }) => {
+  const { shareResults, emojiString } = useGuess();
+
+  useEffect(() => {
+    if (emojiString) navigator.clipboard.writeText(emojiString);
+  }, [emojiString]);
+
   return (
     <>
       <div
@@ -29,7 +36,10 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
           <div className="flex items-center justify-center mb-10">
             <div className="font-bold">Next Wordle</div>
             <div className="h-16 border-r mx-6" />
-            <div className="flex items-center justify-center bg-wordul-success w-max p-2 rounded cursor-pointer text-2xl px-5">
+            <div
+              className="flex items-center justify-center bg-wordul-success w-max p-2 rounded cursor-pointer text-2xl px-5"
+              onClick={shareResults}
+            >
               Share <IoShareSocial className="ml-2" />
             </div>
           </div>

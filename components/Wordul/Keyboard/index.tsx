@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { CgBackspace } from "react-icons/cg";
 import { useGuess } from "../../../Hooks";
 import getDefinition from "../../../utils/getDefinition";
