@@ -83,7 +83,7 @@ const GuessReducer = (
       return { ...state, invalidWord: state.invalidWord + 1 };
     case "SHARE_RESULTS":
       const completedGuessList = state.guesses.map((guess: any) =>
-        guess.map((g) => g.value)
+        guess.map((g: any) => g.value)
       );
       const emojiString = completedGuessList
         .map((guess: any) => {
