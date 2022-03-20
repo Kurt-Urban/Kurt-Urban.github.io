@@ -21,6 +21,7 @@ interface State {
   removeLetter: () => void;
   addGuess: (guess: string[]) => void;
   shareResults: () => void;
+  invalidWordFunc: () => void;
 }
 
 const GuessReducer = (
@@ -122,6 +123,7 @@ const initialState: State = {
   removeLetter: () => {},
   addGuess: (guess: string[]) => {},
   shareResults: () => {},
+  invalidWordFunc: () => {},
 };
 
 export const GuessContext = createContext(initialState);
@@ -148,7 +150,7 @@ export const GuessProvider: FC = ({ children }) => {
       payload: guess,
     });
   }
-  function invalidWord() {
+  function invalidWordFunc() {
     dispatch({
       type: "INVALID_WORD",
       payload: "",
@@ -175,7 +177,7 @@ export const GuessProvider: FC = ({ children }) => {
   }, [state.correctWord]);
 
   const handleKeyInput = useCallback(
-    async (e: any): Promise<void> => {
+    (e: any): void => {
       if (
         keyList.includes(e.key.toLowerCase()) &&
         state.currentGuess.length < 5
@@ -190,14 +192,14 @@ export const GuessProvider: FC = ({ children }) => {
           guess.map((l) => l.letter).join("")
         );
         if (prevGuesses.includes(state.currentGuess.join(""))) {
-          invalidWord();
+          invalidWordFunc();
           return;
         }
 
-        if (await getDefinition(state.currentGuess.join(""))) {
+        if (getDefinition(state.currentGuess.join(""))) {
           addGuess(state.currentGuess);
         } else {
-          invalidWord();
+          invalidWordFunc();
         }
       }
     },
@@ -224,6 +226,7 @@ export const GuessProvider: FC = ({ children }) => {
         removeLetter,
         addGuess,
         shareResults,
+        invalidWordFunc,
       }}
     >
       <div onKeyDown={handleKeyInput}>{children}</div>

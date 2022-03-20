@@ -29,7 +29,7 @@ const KeyboardRow: FC<{ row: string[] }> = ({ row }) => {
 };
 
 const Keyboard: FC = () => {
-  const { currentGuess, removeLetter, addGuess } = useGuess();
+  const { currentGuess, removeLetter, addGuess, invalidWordFunc } = useGuess();
 
   return (
     <>
@@ -39,10 +39,12 @@ const Keyboard: FC = () => {
         <div className="flex justify-center">
           <button
             className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-sm font-bold"
-            onClick={async () => {
+            onClick={() => {
               if (currentGuess.length === 5)
-                if (await getDefinition(currentGuess.join(""))) {
+                if (getDefinition(currentGuess.join(""))) {
                   addGuess(currentGuess);
+                } else {
+                  invalidWordFunc();
                 }
             }}
           >
