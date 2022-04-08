@@ -1,5 +1,4 @@
-import React, { FC, useState } from "react";
-import WordulModal from "../WordulModal";
+import React, { FC } from "react";
 
 const WordulNav: FC = () => {
   return (

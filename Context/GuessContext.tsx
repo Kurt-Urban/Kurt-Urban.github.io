@@ -6,6 +6,7 @@ import React, {
   useReducer,
 } from "react";
 import { keyList } from "../components/Wordul/Keyboard/KeyboardKeys";
+import indexOf from "lodash.indexof";
 import getDefinition from "../utils/getDefinition";
 import pickWord from "../utils/pickWord";
 
@@ -39,19 +40,47 @@ const GuessReducer = (
         return { ...state, currentGuess: [...state.currentGuess].slice(0, -1) };
       return state;
     case "ADD_GUESS":
-      // TODO Create condition for duplicate letters in guess
       const correctWordArray = state.correctWord.split("");
-      const submittedGuess = action.payload.map((letter: string, i: number) => {
-        // 0 = Doesnt Contain Letter
-        // 1 = Correct Letter / Position
-        // 2 = Correct Letter / Bad Position
-        if (letter === correctWordArray[i]) return { letter, value: 1 };
-        if (correctWordArray.includes(letter)) return { letter, value: 2 };
-        return { letter, value: 0 };
-      });
+
+      const getDuplicateLetters = (word: string[]) =>
+        word
+          .slice()
+          .sort()
+          .filter((letter, i, self) => letter === self[i - 1]);
+
+      let duplicateGuessLetters = getDuplicateLetters(action.payload);
+      let duplicateCorrectLetters = getDuplicateLetters(correctWordArray);
+
+      const submittedGuess = action.payload.map(
+        (letter: string, i: number, self: string[]) => {
+          // 0 = Doesnt Contain Letter
+          // 1 = Correct Letter / Position
+          // 2 = Correct Letter / Bad Position
+          const letterEvaluator = (forceValue?: boolean) => {
+            if (forceValue) {
+              return { letter, value: 0, usedLetter: false };
+            }
+            if (letter === correctWordArray[i]) return { letter, value: 1 };
+            if (correctWordArray.includes(letter)) return { letter, value: 2 };
+            return { letter, value: 0 };
+          };
+
+          // Duplicate Letters in guess, no dupes in correct word
+          if (
+            duplicateGuessLetters.includes(letter) &&
+            !duplicateCorrectLetters.includes(letter)
+          ) {
+            if (indexOf(self, letter) !== i) {
+              return letterEvaluator(true);
+            }
+          }
+
+          return letterEvaluator();
+        }
+      );
 
       const usedLetters = submittedGuess
-        .filter((index: any) => index.value === 0)
+        .filter((index: any) => index.value === 0 && index.usedLetter !== false)
         .map((letter: any) => letter.letter);
 
       const prevGuess = action.payload.join("");
@@ -178,6 +207,13 @@ export const GuessProvider: FC = ({ children }) => {
 
   const handleKeyInput = useCallback(
     (e: any): void => {
+      if (document.activeElement !== document.body) {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur();
+        }
+        window.focus();
+        return;
+      }
       if (
         keyList.includes(e.key.toLowerCase()) &&
         state.currentGuess.length < 5
