@@ -28,7 +28,9 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
             <FaTimes className="cursor-pointer" onClick={toggle} />
           </div>
           <div className="text-xl font-bold mb-3">
-            {win === "win" ? "Congrats!" : `${correctWord.toUpperCase()}`}
+            {win === "win"
+              ? "Congrats!"
+              : `The word was: ${correctWord.toUpperCase()}`}
           </div>
           <div className="flex items-center justify-center border-b border-neutral-500 mx-10 mb-14">
             <div className="mb-2">Statistics</div>

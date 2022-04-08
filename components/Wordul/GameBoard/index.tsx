@@ -28,7 +28,7 @@ const GameboardRow: FC<{ row: number }> = ({ row }) => {
                   "border-0 bg-wordul-warn": guesses[row]?.[i]?.value === 2,
                   "border-0 bg-wordul-success": guesses[row]?.[i]?.value === 1,
                   "border-0 bg-wordul-dark": guesses[row]?.[i]?.value === 0,
-                  "animate__animated animate__shakeX":
+                  "animate__animated animate__shakeX animate__fast":
                     row === guesses.length && badGuess,
                 }
               )}
