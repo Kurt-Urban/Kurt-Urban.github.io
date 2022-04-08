@@ -1,12 +1,20 @@
 import classNames from "classnames";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { CgBackspace } from "react-icons/cg";
 import { useGuess } from "../../../Hooks";
 import getDefinition from "../../../utils/getDefinition";
 import { KeyboardKeys } from "./KeyboardKeys";
 
 const KeyboardRow: FC<{ row: string[] }> = ({ row }) => {
-  const { currentGuess, addLetter, usedLetters } = useGuess();
+  const {
+    currentGuess,
+    usedLetters,
+    addLetter,
+    addGuess,
+    invalidWordFunc,
+    removeLetter,
+  } = useGuess();
+
   const keyboardClass = (letter: string) =>
     classNames("text-gray-200 h-14 w-11 rounded-md m-1 text-sm font-bold", {
       "bg-wordul-dark": usedLetters?.includes(letter),
@@ -15,6 +23,21 @@ const KeyboardRow: FC<{ row: string[] }> = ({ row }) => {
 
   return (
     <div className="flex justify-center">
+      {row.includes("z") && (
+        <button
+          className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-sm font-bold"
+          onClick={() => {
+            if (currentGuess.length === 5)
+              if (getDefinition(currentGuess.join(""))) {
+                addGuess(currentGuess);
+              } else {
+                invalidWordFunc();
+              }
+          }}
+        >
+          Enter
+        </button>
+      )}
       {row.map((letter) => (
         <button
           key={letter}
@@ -24,6 +47,14 @@ const KeyboardRow: FC<{ row: string[] }> = ({ row }) => {
           {letter.toUpperCase()}
         </button>
       ))}
+      {row.includes("z") && (
+        <button
+          className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-2xl"
+          onClick={removeLetter}
+        >
+          <CgBackspace />
+        </button>
+      )}
     </div>
   );
 };
@@ -36,28 +67,8 @@ const Keyboard: FC = () => {
       <div className="container max-w-screen mx-auto">
         <KeyboardRow row={KeyboardKeys.lineOne} />
         <KeyboardRow row={KeyboardKeys.lineTwo} />
-        <div className="flex justify-center">
-          <button
-            className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-sm font-bold"
-            onClick={() => {
-              if (currentGuess.length === 5)
-                if (getDefinition(currentGuess.join(""))) {
-                  addGuess(currentGuess);
-                } else {
-                  invalidWordFunc();
-                }
-            }}
-          >
-            Enter
-          </button>
-          <KeyboardRow row={KeyboardKeys.lineThree} />
-          <button
-            className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-2xl"
-            onClick={removeLetter}
-          >
-            <CgBackspace />
-          </button>
-        </div>
+
+        <KeyboardRow row={KeyboardKeys.lineThree} />
       </div>
     </>
   );

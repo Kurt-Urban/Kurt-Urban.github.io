@@ -5,7 +5,6 @@ import classnames from "classnames";
 import WordulModal from "../WordulModal";
 
 const GameboardRow: FC<{ row: number }> = ({ row }) => {
-  // Install loadash.range
   const tilesArray = range(5);
   const { currentGuess, guesses, invalidWord } = useGuess();
   const [badGuess, setBadGuess] = useState(false);
@@ -17,7 +16,7 @@ const GameboardRow: FC<{ row: number }> = ({ row }) => {
   }, [invalidWord]);
   return (
     <>
-      <div className="flex">
+      <div className="flex ">
         {tilesArray.map((tile, i) => {
           return (
             <div
