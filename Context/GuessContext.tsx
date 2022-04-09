@@ -101,7 +101,7 @@ const GuessReducer = (
           percent: (letterCountObject[key] / (guesses.length * 5)) * 100,
         }));
       };
-      console.log("test", generateStats([...state.guesses, submittedGuess]));
+
       if (prevGuess === state.correctWord) {
         return {
           ...state,
