@@ -18,6 +18,7 @@ interface State {
   invalidWord: number;
   usedLetters: string[];
   emojiString: string;
+  stats: { [key: string]: number }[];
   addLetter: (letter: string) => void;
   removeLetter: () => void;
   addGuess: (guess: string[]) => void;
@@ -27,7 +28,7 @@ interface State {
 
 const GuessReducer = (
   state: State,
-  action: { type: string; payload: any }
+  action: { type: string; payload?: any }
 ): State => {
   switch (action.type) {
     case "ADD_LETTER":
@@ -64,7 +65,6 @@ const GuessReducer = (
             if (correctWordArray.includes(letter)) return { letter, value: 2 };
             return { letter, value: 0 };
           };
-
           // Duplicate Letters in guess, no dupes in correct word
           if (
             duplicateGuessLetters.includes(letter) &&
@@ -85,12 +85,30 @@ const GuessReducer = (
 
       const prevGuess = action.payload.join("");
 
+      const generateStats = (guesses: any[]) => {
+        let usedLetterArray: {}[] = [];
+        guesses.forEach((guess: any[]) => {
+          guess.forEach((letter: any) => {
+            usedLetterArray.push(letter.letter);
+          });
+        });
+        let letterCountObject = {};
+        usedLetterArray.sort().forEach((x) => {
+          letterCountObject[x] = (letterCountObject[x] || 0) + 1;
+        });
+        return Object.keys(letterCountObject).map((key: string) => ({
+          [key]: letterCountObject[key],
+          percent: (letterCountObject[key] / (guesses.length * 5)) * 100,
+        }));
+      };
+
       if (prevGuess === state.correctWord) {
         return {
           ...state,
           win: "win",
           currentGuess: [],
           guesses: [...state.guesses, submittedGuess],
+          stats: generateStats([...state.guesses, submittedGuess]),
         };
       }
       // Last guess
@@ -100,6 +118,7 @@ const GuessReducer = (
           win: "loss",
           currentGuess: [],
           guesses: [...state.guesses, submittedGuess],
+          stats: generateStats([...state.guesses, submittedGuess]),
         };
       }
 
@@ -148,6 +167,7 @@ const initialState: State = {
   invalidWord: 0,
   usedLetters: [],
   emojiString: "",
+  stats: [],
   addLetter: (letter: string) => {},
   removeLetter: () => {},
   addGuess: (guess: string[]) => {},
@@ -169,7 +189,6 @@ export const GuessProvider: FC = ({ children }) => {
   function removeLetter() {
     dispatch({
       type: "REMOVE_LETTER",
-      payload: "",
     });
   }
 
@@ -182,13 +201,11 @@ export const GuessProvider: FC = ({ children }) => {
   function invalidWordFunc() {
     dispatch({
       type: "INVALID_WORD",
-      payload: "",
     });
   }
   function shareResults() {
     dispatch({
       type: "SHARE_RESULTS",
-      payload: "",
     });
   }
 
@@ -258,6 +275,7 @@ export const GuessProvider: FC = ({ children }) => {
         invalidWord: state.invalidWord,
         usedLetters: state.usedLetters,
         emojiString: state.emojiString,
+        stats: state.stats,
         addLetter,
         removeLetter,
         addGuess,
