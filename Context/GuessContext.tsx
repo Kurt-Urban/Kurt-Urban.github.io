@@ -92,7 +92,7 @@ const GuessReducer = (
             usedLetterArray.push(letter.letter);
           });
         });
-        let letterCountObject = {};
+        let letterCountObject: { [key: string]: number }[] = [];
         usedLetterArray.sort().forEach((x) => {
           letterCountObject[x] = (letterCountObject[x] || 0) + 1;
         });
