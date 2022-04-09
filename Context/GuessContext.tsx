@@ -86,13 +86,13 @@ const GuessReducer = (
       const prevGuess = action.payload.join("");
 
       const generateStats = (guesses: any[]) => {
-        let usedLetterArray: {}[] = [];
+        let usedLetterArray: any[] = [];
         guesses.forEach((guess: any[]) => {
           guess.forEach((letter: any) => {
             usedLetterArray.push(letter.letter);
           });
         });
-        let letterCountObject: { [key: string]: number }[] = [];
+        let letterCountObject: any[] = [];
         usedLetterArray.sort().forEach((x) => {
           letterCountObject[x] = (letterCountObject[x] || 0) + 1;
         });
@@ -101,7 +101,7 @@ const GuessReducer = (
           percent: (letterCountObject[key] / (guesses.length * 5)) * 100,
         }));
       };
-
+      console.log("test", generateStats([...state.guesses, submittedGuess]));
       if (prevGuess === state.correctWord) {
         return {
           ...state,

@@ -41,12 +41,12 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
           <div className="flex items-center justify-center border-b border-neutral-500 mx-10 ">
             <div className="mb-2">Statistics</div>
           </div>
-          <div className="mt-4 mb-6">
+          <div className="mt-4 mb-6 container">
             {stats.map((stat, i) => {
               const statArray = Object.keys(stat);
 
               return (
-                <div key={i} className="mb-1 mx-10">
+                <div key={i} className="mb-1 mx-2 sm:mx-10">
                   <div className="flex">
                     <div className="font-bold w-4">
                       {statArray[0].toUpperCase()}:
