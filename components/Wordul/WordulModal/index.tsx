@@ -23,7 +23,7 @@ const WordulModal: FC<{ toggle: () => void; isOpen: boolean; win: string }> = ({
           { "opacity-0 -translate-y-24 invisible": !isOpen }
         )}
       >
-        <div className="container bg-neutral-900 border border-neutral-800 rounded w-1/4 mx-auto grid">
+        <div className="container bg-neutral-900 border border-neutral-800 rounded w-11/12 lg:w-1/4 mx-auto grid">
           <div className="flex w-full justify-end pr-4 pt-4">
             <FaTimes className="cursor-pointer" onClick={toggle} />
           </div>
