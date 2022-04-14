@@ -8,6 +8,7 @@ import Link from "next/link";
 import classNames from "classnames";
 import Introduction from "../components/Banner/PaginationItems/Introduction";
 import Skills from "../components/Banner/PaginationItems/Skills";
+import Image from "next/image";
 
 const Home: React.FC = () => {
   const { toggleDarkMode, darkModeEnabled } = useDarkMode();
@@ -47,13 +48,15 @@ const Home: React.FC = () => {
           <div className="container flex justify-center items-center">
             <div className="ml-32">
               <div className="text-7xl font-bold pr-40">Designed With</div>
-              <div className="float-right -mt-8">
-                <img
+              <div
+                className="float-right -mt-8"
+                style={{ filter: darkModeEnabled ? "invert(0.9)" : "" }}
+              >
+                <Image
                   src="/Nextjs-logo.png"
                   alt="next js logo"
                   height={150}
                   width={250.33}
-                  style={{ filter: darkModeEnabled ? "invert(0.9)" : "" }}
                 />
               </div>
             </div>
