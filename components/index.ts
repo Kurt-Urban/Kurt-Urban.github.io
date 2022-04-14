@@ -6,3 +6,4 @@ export { default as GameBoard } from "./Wordul/GameBoard";
 export { default as WordulNav } from "./Wordul/WordulNav";
 export { default as Welcome } from "./Welcome";
 export { default as SideNav } from "./SideNav";
+export { default as HomeCards } from "./HomeCards";
