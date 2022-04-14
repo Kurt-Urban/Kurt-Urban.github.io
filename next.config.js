@@ -6,7 +6,8 @@ const nextConfig = {
   reactStrictMode: true,
   assetPrefix: isProd ? "." : "",
   images: {
-    loader: "default",
+    loader: "imgix",
+    path: "",
   },
 };
 
