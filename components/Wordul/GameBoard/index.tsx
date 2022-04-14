@@ -16,7 +16,7 @@ const GameboardRow: FC<{ row: number }> = ({ row }) => {
   }, [invalidWord]);
   return (
     <>
-      <div className="flex ">
+      <div className="flex">
         {tilesArray.map((tile, i) => {
           return (
             <div

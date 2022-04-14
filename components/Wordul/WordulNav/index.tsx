@@ -1,4 +1,7 @@
+/* eslint-disable @next/next/link-passhref */
+import Link from "next/link";
 import React, { FC } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
 const WordulNav: FC = () => {
   return (
@@ -8,6 +11,9 @@ const WordulNav: FC = () => {
           W O R D U L
         </div>
       </div>
+      <Link href="/">
+        <FaArrowLeft className="-mt-10 ml-2 cursor-pointer text-wordul-dark" />
+      </Link>
     </>
   );
 };
