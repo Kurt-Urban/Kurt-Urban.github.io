@@ -4,7 +4,7 @@ import React, { FC } from "react";
 
 const WordulButton: FC = () => {
   const classStyling =
-    "flex items-center justify-center text-4xl font-bold w-20 h-20 m-1";
+    "flex items-center justify-center text-4xl font-bold m-1 text-wordul-text w-20 h-20";
   return (
     <>
       <div className="flex">
@@ -18,6 +18,7 @@ const WordulButton: FC = () => {
                   "bg-wordul-warn": randomColor === 1,
                   "bg-wordul-dark": randomColor === 2,
                 })}
+                style={{ minWidth: 50 }}
               >
                 {letter}
               </button>

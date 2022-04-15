@@ -46,7 +46,7 @@ const Skills: FC = () => {
   return (
     <>
       <div className="flex justify-center font-bold text-lg mb-3">Skills</div>
-      <div className="px-2 grid grid-cols-4 mb-12">
+      <div className="px-2 grid sm:grid-cols-2 lg:grid-cols-4 mb-12">
         {sortedSkills.map((skill, i) => {
           return <Skill key={skill + i} skill={skill} />;
         })}
