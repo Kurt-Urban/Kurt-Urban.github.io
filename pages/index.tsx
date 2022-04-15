@@ -9,6 +9,7 @@ import classNames from "classnames";
 import Introduction from "../components/Banner/PaginationItems/Introduction";
 import Skills from "../components/Banner/PaginationItems/Skills";
 import Image from "next/image";
+import WordulButton from "../components/Banner/PaginationItems/WordulButton";
 
 const Home: React.FC = () => {
   const { toggleDarkMode, darkModeEnabled } = useDarkMode();
@@ -18,10 +19,10 @@ const Home: React.FC = () => {
       <div className="mb-10">
         <div
           id="top-nav"
-          className="py-4 mb-16 font-bold text-lg flex float-right w-4/5"
+          className="pt-4 sm:py-4 mb-16 font-bold text-lg flex float-right sm:w-4/5"
         >
           <div className="pt-1">Kurt Urban</div>
-          <div className="flex w-1/3 justify-between items-center ml-96 pl-20">
+          <div className="flex justify-between items-center w-56 sm:w-96 lg:w-1/3 lg:ml-96 pl-4 sm:pl-20">
             <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" passHref>
               <button
                 className={classNames(
@@ -46,8 +47,10 @@ const Home: React.FC = () => {
         <div className="container flex">
           <SideNav />
           <div className="container flex justify-center items-center">
-            <div className="ml-32">
-              <div className="text-7xl font-bold pr-40">Designed With</div>
+            <div className="md:ml-32">
+              <div className="font-bold text-2xl sm:text-7xl lg:pr-40">
+                Designed With
+              </div>
               <div
                 className="float-right -mt-8"
                 style={{ filter: darkModeEnabled ? "invert(0.9)" : "" }}
@@ -63,26 +66,54 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="h-screen">
-        <Parallax
-          translateX={[-100, 35]}
-          startScroll={100}
-          endScroll={550}
-          easing="easeInOutQuad"
-          className="w-1/3"
-        >
-          <Introduction />
-        </Parallax>
-        <Parallax
-          translateX={[300, 160]}
-          startScroll={300}
-          endScroll={750}
-          easing="easeInOutQuad"
-          className="w-1/3 mt-20"
-        >
-          <Skills />
-        </Parallax>
-      </div>
+
+      <Parallax
+        translateX={[-100, 35]}
+        startScroll={100}
+        endScroll={550}
+        easing="easeInOutQuad"
+        className="w-1/3"
+      >
+        <Introduction />
+      </Parallax>
+      <Parallax
+        translateX={[300, 160]}
+        startScroll={300}
+        endScroll={750}
+        easing="easeInOutQuad"
+        className="w-1/3 mt-20"
+      >
+        <Skills />
+      </Parallax>
+      <Parallax
+        translateX={[-100, 35]}
+        startScroll={500}
+        endScroll={950}
+        easing="easeInOutQuad"
+        className="w-1/3 mt-20"
+      >
+        <WordulButton />
+      </Parallax>
+      <Parallax
+        translateX={[300, 160]}
+        startScroll={700}
+        endScroll={1150}
+        easing="easeInOutQuad"
+        className="w-1/3 mt-20"
+      >
+        <Link href="https://github.com/Kurt-Urban/Snake" passHref>
+          <div className="transition hover:scale-105">
+            <Image
+              src="/snek.png"
+              alt="snake game"
+              width={1158}
+              height={824}
+              className="rounded-xl cursor-pointer"
+            />
+          </div>
+        </Link>
+      </Parallax>
+      <div className="min-h-screen"></div>
     </div>
   );
 };

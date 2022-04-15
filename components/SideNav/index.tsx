@@ -8,7 +8,7 @@ const SideNav: FC = () => {
   const textColor = darkModeEnabled ? "text-white" : "text-black";
   return (
     <>
-      <div className="max-w-max ml-10 mt-32">
+      <div className="max-w-max ml-2 md:ml-10 mt-32">
         <div className="rows-4 ml-6 mb-36 z-30">
           <a
             href="https://www.linkedin.com/in/kurturban00/"
