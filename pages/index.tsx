@@ -94,6 +94,25 @@ const Home: React.FC = () => {
       >
         <WordulButton />
       </Parallax>
+      <Parallax
+        translateX={[300, 160]}
+        startScroll={700}
+        endScroll={1150}
+        easing="easeInOutQuad"
+        className="w-1/3 mt-20"
+      >
+        <Link href="https://github.com/Kurt-Urban/Snake" passHref>
+          <div className="transition hover:scale-105">
+            <Image
+              src="/snek.png"
+              alt="snake game"
+              width={1158}
+              height={824}
+              className="rounded-xl cursor-pointer"
+            />
+          </div>
+        </Link>
+      </Parallax>
       <div className="min-h-screen"></div>
     </div>
   );
