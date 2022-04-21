@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import { SideNav } from "../components";
+import { HomeCards, SideNav } from "../components";
 import { Parallax } from "react-scroll-parallax";
 import DarkModeToggle from "react-dark-mode-toggle";
 import useDarkMode from "../Hooks/useDarkMode";
 import Link from "next/link";
 import classNames from "classnames";
-import Introduction from "../components/Banner/PaginationItems/Introduction";
-import Skills from "../components/Banner/PaginationItems/Skills";
+import Introduction from "../components/Introduction";
+import Skills from "../components/Skills";
 import Image from "next/image";
-import WordulButton from "../components/Banner/PaginationItems/WordulButton";
+import WordulButton from "../components/WordulButton";
 
 const Home: React.FC = () => {
   const { toggleDarkMode, darkModeEnabled } = useDarkMode();
@@ -66,53 +66,7 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <Parallax
-        translateX={[-100, 35]}
-        startScroll={100}
-        endScroll={550}
-        easing="easeInOutQuad"
-        className="w-1/3"
-      >
-        <Introduction />
-      </Parallax>
-      <Parallax
-        translateX={[300, 160]}
-        startScroll={300}
-        endScroll={750}
-        easing="easeInOutQuad"
-        className="w-1/3 mt-20"
-      >
-        <Skills />
-      </Parallax>
-      <Parallax
-        translateX={[-100, 35]}
-        startScroll={500}
-        endScroll={950}
-        easing="easeInOutQuad"
-        className="w-1/3 mt-20"
-      >
-        <WordulButton />
-      </Parallax>
-      <Parallax
-        translateX={[300, 160]}
-        startScroll={700}
-        endScroll={1150}
-        easing="easeInOutQuad"
-        className="w-1/3 mt-20"
-      >
-        <Link href="https://github.com/Kurt-Urban/Snake" passHref>
-          <div className="transition hover:scale-105">
-            <Image
-              src="/snek.png"
-              alt="snake game"
-              width={1158}
-              height={824}
-              className="rounded-xl cursor-pointer"
-            />
-          </div>
-        </Link>
-      </Parallax>
+      <HomeCards />
       <div className="min-h-screen"></div>
     </div>
   );

@@ -1,74 +1,73 @@
-import classNames from "classnames";
 import React, { FC } from "react";
 import { CgBackspace } from "react-icons/cg";
 import { useGuess } from "../../../Hooks";
-import getDefinition from "../../../utils/getDefinition";
-import { KeyboardKeys } from "./KeyboardKeys";
-
-const KeyboardRow: FC<{ row: string[] }> = ({ row }) => {
-  const {
-    currentGuess,
-    usedLetters,
-    addLetter,
-    addGuess,
-    invalidWordFunc,
-    removeLetter,
-  } = useGuess();
-
-  const keyboardClass = (letter: string) =>
-    classNames("text-gray-200 h-14 w-11 rounded-md m-1 text-sm font-bold", {
-      "bg-wordul-dark": usedLetters?.includes(letter),
-      "bg-wordul-gray": !usedLetters?.includes(letter),
-    });
-
-  return (
-    <div className="flex justify-center">
-      {row.includes("z") && (
-        <button
-          className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-sm font-bold"
-          onClick={() => {
-            if (currentGuess.length === 5)
-              if (getDefinition(currentGuess.join(""))) {
-                addGuess(currentGuess);
-              } else {
-                invalidWordFunc();
-              }
-          }}
-        >
-          Enter
-        </button>
-      )}
-      {row.map((letter) => (
-        <button
-          key={letter}
-          className={keyboardClass(letter)}
-          onClick={() => (currentGuess.length < 5 ? addLetter(letter) : null)}
-        >
-          {letter.toUpperCase()}
-        </button>
-      ))}
-      {row.includes("z") && (
-        <button
-          className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-2xl"
-          onClick={removeLetter}
-        >
-          <CgBackspace />
-        </button>
-      )}
-    </div>
-  );
-};
 
 const Keyboard: FC = () => {
-  const { currentGuess, removeLetter, addGuess, invalidWordFunc } = useGuess();
+  const { currentGuess, addLetter, removeLetter, addGuess } = useGuess();
+
+  const lineOne = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
+  const lineTwo = ["a", "s", "d", "f", "g", "h", "j", "k", "l"];
+  const lineThree = ["z", "x", "c", "v", "b", "n", "m"];
+
+  const keyboardClass =
+    "bg-wordul-gray text-gray-200 h-14 w-11 rounded-md m-1 text-sm font-bold";
 
   return (
     <>
-      <div className="container max-w-screen mx-auto">
-        <KeyboardRow row={KeyboardKeys.lineOne} />
-        <KeyboardRow row={KeyboardKeys.lineTwo} />
-
-        <KeyboardRow row={KeyboardKeys.lineThree} />
+      <div className="container max-w-screen mx-auto ">
+        <div className="flex justify-center">
+          {lineOne.map((letter) => (
+            <button
+              key={letter}
+              className={keyboardClass}
+              onClick={() =>
+                currentGuess.length < 5 ? addLetter(letter) : null
+              }
+            >
+              {letter.toUpperCase()}
+            </button>
+          ))}
+        </div>
+        <div className="flex justify-center">
+          {lineTwo.map((letter) => (
+            <button
+              key={letter}
+              className={keyboardClass}
+              onClick={() =>
+                currentGuess.length < 6 ? addLetter(letter) : null
+              }
+            >
+              {letter.toUpperCase()}
+            </button>
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <button
+            className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-sm font-bold"
+            onClick={() => {
+              if (currentGuess.length === 5) addGuess(currentGuess);
+            }}
+          >
+            Enter
+          </button>
+          {lineThree.map((letter) => (
+            <button
+              key={letter}
+              className={keyboardClass}
+              onClick={() =>
+                currentGuess.length < 5 ? addLetter(letter) : null
+              }
+            >
+              {letter.toUpperCase()}
+            </button>
+          ))}
+          <button
+            className="bg-wordul-gray text-gray-200 h-14 px-3 rounded-md m-1 text-2xl"
+            onClick={removeLetter}
+          >
+            <CgBackspace />
+          </button>
+        </div>
       </div>
     </>
   );

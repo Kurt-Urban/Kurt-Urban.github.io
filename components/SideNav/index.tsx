@@ -2,10 +2,15 @@ import React, { FC } from "react";
 import { FaGithub, FaLinkedin, FaFileDownload } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import useDarkMode from "../../Hooks/useDarkMode";
+import tw from "tailwind-styled-components";
+
+const Icon = tw.div`text-shadow flex items-center`;
+const IconLink = tw.div`absolute mt-1 text-shadow font-bold opacity-0 transition group-hover:opacity-100 text-xl group-hover:translate-x-14`;
 
 const SideNav: FC = () => {
   const { darkModeEnabled } = useDarkMode();
   const textColor = darkModeEnabled ? "text-white" : "text-black";
+
   return (
     <>
       <div className="max-w-max ml-2 md:ml-10 mt-32">
@@ -14,27 +19,27 @@ const SideNav: FC = () => {
             href="https://www.linkedin.com/in/kurturban00/"
             className="flex group my-6 pr-7 transition hover:text-blue-600"
           >
-            <div className="text-shadow flex items-center">
+            <Icon>
               <FaLinkedin className="ml-1 text-4xl" />
-            </div>
-            <div className="absolute mt-1 text-shadow font-bold opacity-0 transition group-hover:opacity-100 text-xl group-hover:translate-x-14">
+            </Icon>
+            <IconLink>
               <span className={`transition hover:text-blue-600 ${textColor}`}>
                 Kurturban00
               </span>
-            </div>
+            </IconLink>
           </a>
           <a
             href="https://github.com/kurt-urban"
             className="flex group my-6 pr-7 transition hover:text-gray-500 "
           >
-            <div className="text-shadow flex items-center">
+            <Icon>
               <FaGithub className="ml-1 text-4xl" />
-            </div>
-            <div className="absolute mt-1 text-shadow font-bold opacity-0 transition group-hover:opacity-100 text-xl group-hover:translate-x-14 hover:text-gray-500">
+            </Icon>
+            <IconLink>
               <span className={`transition hover:text-gray-500 ${textColor}`}>
                 Kurt-Urban
               </span>
-            </div>
+            </IconLink>
           </a>
           <a
             href="mailto: kurturban00@gmail.com"
@@ -43,14 +48,14 @@ const SideNav: FC = () => {
               navigator.clipboard.writeText("kurturban00@gmail.com");
             }}
           >
-            <div className="text-shadow flex items-center">
+            <Icon>
               <SiGmail className="ml-1 text-4xl" />
-            </div>
-            <div className="absolute mt-1 flex items-center text-xl text-shadow font-bold opacity-0 transition group-hover:opacity-100 group-hover:translate-x-14 hover:text-red-500">
+            </Icon>
+            <IconLink>
               <span className={`transition hover:text-red-500 ${textColor}`}>
                 kurturban00@gmail.com
               </span>
-            </div>
+            </IconLink>
           </a>
           <a
             href="/files/Resume.docx"
@@ -59,14 +64,14 @@ const SideNav: FC = () => {
             download={`Urban-Resume-${new Date().getFullYear()}.docx`}
             className="flex group cursor-pointer my-6 pr-7 transition hover:text-lime-500"
           >
-            <div className="text-shadow flex items-center text-xl">
+            <Icon className="text-xl">
               <FaFileDownload className="ml-1 text-4xl" />
-            </div>
-            <div className="absolute flex ml-1 mt-1 text-xl items-center text-shadow font-bold opacity-0 transition group-hover:opacity-100 group-hover:translate-x-14 ">
+            </Icon>
+            <IconLink>
               <span className={`transition hover:text-lime-500 ${textColor}`}>
                 Download Resume
               </span>
-            </div>
+            </IconLink>
           </a>
         </div>
       </div>
