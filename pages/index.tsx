@@ -1,15 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { HomeCards, SideNav } from "../components";
-import { Parallax } from "react-scroll-parallax";
 import DarkModeToggle from "react-dark-mode-toggle";
 import useDarkMode from "../Hooks/useDarkMode";
 import Link from "next/link";
 import classNames from "classnames";
-import Introduction from "../components/Introduction";
-import Skills from "../components/Skills";
 import Image from "next/image";
-import WordulButton from "../components/WordulButton";
 
 const Home: React.FC = () => {
   const { toggleDarkMode, darkModeEnabled } = useDarkMode();

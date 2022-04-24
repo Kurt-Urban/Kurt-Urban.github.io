@@ -58,10 +58,10 @@ const SideNav: FC = () => {
             </IconLink>
           </a>
           <a
-            href="/files/Resume.docx"
+            href="/files/Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            download={`Urban-Resume-${new Date().getFullYear()}.docx`}
+            download={`Urban-Resume-${new Date().getFullYear()}.pdf`}
             className="flex group cursor-pointer my-6 pr-7 transition hover:text-lime-500"
           >
             <Icon className="text-xl">
