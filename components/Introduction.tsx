@@ -8,7 +8,7 @@ const Introduction: FC = () => {
         <span>
           I&apos;m a software developer based in Florida. My background is in
           Full-Stack Typescript-React Development, though I have shifted focus
-          onto backend server design and development using Typescript. I enjoy
+          onto backend server design and development using Node.js. I enjoy
           snowboarding, brewing, logistics video games, photography and playing
           musical instruments.
         </span>

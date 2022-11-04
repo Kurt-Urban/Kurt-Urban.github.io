@@ -11,7 +11,7 @@ const WordulNav: FC = () => {
           W O R D U L
         </div>
       </div>
-      <Link href="/">
+      <Link href="/games">
         <FaArrowLeft className="-mt-10 ml-2 cursor-pointer text-wordul-dark" />
       </Link>
     </>
