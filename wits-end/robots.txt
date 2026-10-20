@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kurt-urban.github.io/wits-end/sitemap-index.xml
