@@ -1,0 +1,1 @@
+import{t as e}from"./forms.Bcnw4S6m.js";var t=document.querySelector(`[data-booking-form]`);if(t){let n=t.dataset.email?` Please email ${t.dataset.email}.`:``;e(t,{notReady:`The booking form is not yet available.${n}`,failed:`Your inquiry could not be sent.${n}`,subject:e=>e.name?`New booking inquiry from ${e.name}`:String(e.subject)})}
