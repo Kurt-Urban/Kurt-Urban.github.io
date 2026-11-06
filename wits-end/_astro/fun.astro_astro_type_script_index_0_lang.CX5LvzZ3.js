@@ -1,1 +1,0 @@
-import{t as e}from"./forms.DHJEeUND.js";var t=document.querySelector(`[data-prompt-form]`);t&&e(t,{failed:`Something went wrong sending your prompt. Please try again.`,subject:e=>`New rehearsal prompt: ${e.prompt_type??`prompt`}`});

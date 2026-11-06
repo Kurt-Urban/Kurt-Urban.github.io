@@ -1,1 +1,0 @@
-import{t as e}from"./forms.DHJEeUND.js";var t=document.querySelector(`[data-booking-form]`);if(t){let n=t.dataset.email?` Please email ${t.dataset.email}.`:``;e(t,{failed:`Your inquiry could not be sent.${n}`,subject:e=>e.name?`New booking inquiry from ${e.name}`:String(e.subject)})}
